@@ -49,6 +49,10 @@
                     `;
                     document.getElementById('info').style.display = 'block';
                     alert('Alerta de notificação enviada para contato!');
+                    // Alterar a variável de controle para "true"
+                    db.collection("usuarios").doc(userId).update({
+                        alerta: true
+                    });
                 } else {
                     console.log("No such document!");
                 }
