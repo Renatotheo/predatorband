@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predator</title>
+    <style>
+        #info {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bem vindo ao Predator Pulseira</h1>
+    <p>Esta é uma página de teste para o nosso QR Code.</p>
+    <button onclick="mostrarInfo()">Clique em mim!</button>
+
+    <div id="info">
+        <h2>Informações</h2>
+        <ul>
+            <li>Nome: Renato Theobaldo</li>
+            <li>Alergia: Amendoim</li>
+            <li>Tipo sangüíneo: AB</li>
+            <li>Equipe: André Cavalcanti</li>
+        </ul>
+    </div>
+
+    <script>
+        function mostrarInfo() {
+            document.getElementById('info').style.display = 'block';
+            alert('Alerta de notificação enviada para contato!');
+        }
+    </script>
+</body>
+</html>
