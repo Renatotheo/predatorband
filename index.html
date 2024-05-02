@@ -7,6 +7,8 @@
             display: none;
         }
     </style>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
 </head>
 <body>
     <h1>Bem vindo ao Predator Pulseira</h1>
@@ -15,19 +17,46 @@
 
     <div id="info">
         <h2>Informações</h2>
-        <ul>
-            <li>Nome: Renato Theobaldo</li>
-            <li>Alergia: Amendoim</li>
-            <li>Tipo sangüíneo: AB</li>
-            <li>Equipe: André Cavalcanti</li>
+        <ul id="userData">
+            <!-- Os dados do usuário serão inseridos aqui -->
         </ul>
     </div>
 
     <script>
+        // Configurações do seu projeto
+        var firebaseConfig = {
+            apiKey: "AIzaSyDLFlCDFqCbzhiQ8qbwtEdfdpaYW7Q_jCU",
+            authDomain: "predatorsports-d0809.firebaseapp.com",
+            projectId: "predatorsports-d0809",
+            storageBucket: "predatorsports-d0809.appspot.com",
+            messagingSenderId: "847487985565",
+            appId: "1:847487985565:web:9543f0c22f94c4e499b174"
+        };
+        // Inicialize o Firebase
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+
         function mostrarInfo() {
-            document.getElementById('info').style.display = 'block';
-            alert('Alerta de notificação enviada para contato!');
+            var urlParams = new URLSearchParams(window.location.search);
+            var userId = urlParams.get('userId');
+            db.collection("usuarios").doc(userId).get().then((doc) => {
+                if (doc.exists) {
+                    var data = doc.data();
+                    document.getElementById('userData').innerHTML = `
+                        <li>Nome: ${data.nome}</li>
+                        <li>Alergia: ${data.alergia}</li>
+                        <li>Tipo sangüíneo: ${data.tipoSanguineo}</li>
+                    `;
+                    document.getElementById('info').style.display = 'block';
+                    alert('Alerta de notificação enviada para contato!');
+                } else {
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
         }
     </script>
 </body>
 </html>
+
